@@ -1,27 +1,10 @@
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Test {
 
-    static class NUserDao extends UserDao {
-        @Override
-        public Connection getConnection() throws ClassNotFoundException, SQLException {
-            // N사의 DB Connection 생성 코드
-            return null;
-        }
-    }
-
-    static class DUserDao extends UserDao {
-        @Override
-        public Connection getConnection() throws ClassNotFoundException, SQLException {
-            // D사의 DB Connection 생성 코드
-            return null;
-        }
-    }
-
     public static void main(String[] args) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 //        UserDao dao = new DUserDao();
-        UserDao dao = new NUserDao();
+        UserDao dao = new UserDao();
 
         User user = new User();
         user.setId("아이디123");
