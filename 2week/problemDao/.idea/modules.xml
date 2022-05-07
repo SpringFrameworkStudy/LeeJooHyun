@@ -14,6 +14,8 @@
       <module fileurl="file://$PROJECT_DIR$/version1.5.1/version1.5.1.iml" filepath="$PROJECT_DIR$/version1.5.1/version1.5.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/version1.6.1/version1.6.1.iml" filepath="$PROJECT_DIR$/version1.6.1/version1.6.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/version1.6.3/version1.6.3.iml" filepath="$PROJECT_DIR$/version1.6.3/version1.6.3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/version1.7.3/version1.7.3.iml" filepath="$PROJECT_DIR$/version1.7.3/version1.7.3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/version1.7.4/version1.7.4.iml" filepath="$PROJECT_DIR$/version1.7.4/version1.7.4.iml" />
     </modules>
   </component>
 </project>
