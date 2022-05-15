@@ -9,15 +9,24 @@ import static org.hamcrest.CoreMatchers.is;
 
 
 public class UserDaoTest {
+    private UserDao dao;
+    private User user1;
+    private User user2;
+    private User user3;
+
+    @Before
+    public void setup(){
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+        this.dao = context.getBean("userDao", UserDao.class);
+
+        this.user1 = new User("아이디133", "이름1", "비밀번호1");
+        this.user2 = new User("leegw700", "이름1", "spring2");
+        this.user3 = new User("bunjin", "이름이다.", "spring203");
+
+    }
 
     @Test
     public void addAndGet() throws SQLException, ClassNotFoundException {
-        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-        UserDao dao = context.getBean("userDao", UserDao.class);
-
-        User user1 = new User("아이디133", "이름1", "비밀번호1");
-        User user2 = new User("leegw700", "이름1", "spring2");
-
         dao.deleteAll();
         Assert.assertThat(dao.getCount(), is(0));
 
@@ -35,13 +44,6 @@ public class UserDaoTest {
 
     @Test
     public void count() throws SQLException{
-        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-        UserDao dao = context.getBean("userDao", UserDao.class);
-
-        User user1 = new User("아이디133", "이름1", "비밀번호1");
-        User user2 = new User("leegw700", "이름1", "spring2");
-        User user3 = new User("bunjin", "이름이다.", "spring203");
-
         dao.deleteAll();
         Assert.assertThat(dao.getCount(), is(0));
 
@@ -55,8 +57,6 @@ public class UserDaoTest {
 
     @Test(expected = EmptyResultDataAccessException.class)
     public void getUserFailure() throws SQLException, ClassNotFoundException {
-        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-        UserDao dao = context.getBean("userDao", UserDao.class);
         dao.deleteAll();
         Assert.assertThat(dao.getCount(), is(0));
         dao.get("unknown_id");
