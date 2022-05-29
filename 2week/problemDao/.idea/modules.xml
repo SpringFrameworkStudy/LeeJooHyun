@@ -22,7 +22,10 @@
       <module fileurl="file://$PROJECT_DIR$/version2.4.1/version2.4.1.iml" filepath="$PROJECT_DIR$/version2.4.1/version2.4.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/version3.1.1/version3.1.1.iml" filepath="$PROJECT_DIR$/version3.1.1/version3.1.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/version3.2.2/version3.2.2.iml" filepath="$PROJECT_DIR$/version3.2.2/version3.2.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/version3.3.1/version3.3.1.iml" filepath="$PROJECT_DIR$/version3.3.1/version3.3.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/version3.3.2/version3.3.2.iml" filepath="$PROJECT_DIR$/version3.3.2/version3.3.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/version3.4.1/version3.4.1.iml" filepath="$PROJECT_DIR$/version3.4.1/version3.4.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/version3.4.2/version3.4.2.iml" filepath="$PROJECT_DIR$/version3.4.2/version3.4.2.iml" />
     </modules>
   </component>
 </project>

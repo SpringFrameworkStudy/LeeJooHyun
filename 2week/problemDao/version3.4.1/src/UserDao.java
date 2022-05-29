@@ -6,52 +6,48 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class UserDao {
+public class UserDao {
 
     private DataSource dataSource;
+    private JdbcContext jdbcContext;
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    abstract protected PreparedStatement makeStatement(Connection c) throws SQLException;
+    public void setJdbcContext(JdbcContext jdbcContext) {this.jdbcContext = jdbcContext;}
 
-    public void jdbcContextWithStatementStrategy(StatementStrategy stmt) throws SQLException{
-        Connection c = null;
-        PreparedStatement ps = null;
+    public void add(final User user) throws SQLException {
 
-        try{
-            c=dataSource.getConnection();
-
-            // 전략이 담길 그릇?
-            ps = stmt.makePreparedStatement(c);
-
-            ps.executeUpdate();
-        }catch (SQLException e){
-            throw e;
-        }finally {
-            if(ps != null){ try{ ps.close(); }catch (SQLException e){} }
-            if (c!= null){ try{ c.close(); }catch (SQLException e){} }
-        }
+        this.jdbcContext.workWithStatementStrategy(
+                new StatementStrategy() {
+                    @Override
+                    public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
+                        PreparedStatement ps = c.prepareStatement("insert into users() values(?,?,?)");
+                        ps.setString(1, user.getId());
+                        ps.setString(2, user.getName());
+                        ps.setString(3, user.getPassword());
+                        return ps;
+                    }
+                }
+        );
     }
 
-
-    public void add(User user) throws SQLException {
-        Connection c = dataSource.getConnection();
-        PreparedStatement ps = c.prepareStatement("insert into users(id, name, password) values (?,?,?)");
-        ps.setString(1, user.getId());
-        ps.setString(2, user.getName());
-        ps.setString(3, user.getPassword());
-        ps.executeUpdate();
-
-        ps.close();
-        c.close();
+    public void deleteAll() throws SQLException{
+        this.jdbcContext.workWithStatementStrategy(
+                new StatementStrategy() {
+                    @Override
+                    public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
+                        PreparedStatement ps = c.prepareStatement("delete from users");
+                        return ps;
+                    }
+                }
+        );
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException{
+
         Connection c = dataSource.getConnection();
-
-
         PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
         ps.setString(1, id);
 
@@ -71,11 +67,6 @@ public abstract class UserDao {
 
         if(user == null) throw new EmptyResultDataAccessException(1);
         return user;
-    }
-
-    public void deleteAll() throws SQLException{
-        DeleteAllStatement st = new DeleteAllStatement();
-        jdbcContextWithStatementStrategy(st);
     }
 
     public int getCount() throws SQLException{
